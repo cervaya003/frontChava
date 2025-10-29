@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Peticiones } from '../../services/peticiones.service'
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,28 +6,8 @@ import { Peticiones } from '../../services/peticiones.service'
   styleUrls: ['./home.page.scss'],
   standalone: false
 })
-export class HomePage implements OnInit {
+export class HomePage {
 
-  private datos: any = {
-    'email': 'cervaya.003@gmail.com',
-    'nombre': 'Hector'
-  }
-
-  public p: boolean = false;
-
-  constructor(
-    private Peticion: Peticiones
-  ) { }
-
-  ngOnInit() {
-    this.Peticion.registro(this.datos).subscribe({
-      next: (res: any) => {
-        this.p = true;
-      },
-      error: () => {
-
-      },
-    });
-  }
+  constructor() { }
 
 }

@@ -1,8 +1,17 @@
+// services/peticiones.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+
+export interface Persona {
+  _id?: string;
+  nombre: string;
+  email: string;
+  telefono: string;
+  edad: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +21,43 @@ export class Peticiones {
 
   constructor(private http: HttpClient) { }
 
+  // Operaciones CRUD para Personas
+  getPersonas(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/personas`)
+      .pipe(catchError(this.handleError));
+  }
+
+  getPersona(id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/personas/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  createPersona(datos: Persona): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json, text/plain, */*'
+    });
+
+    return this.http.post(`${this.baseUrl}/personas`, datos, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  updatePersona(id: string, datos: Persona): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': 'application/json, text/plain, */*'
+    });
+
+    return this.http.put(`${this.baseUrl}/personas/${id}`, datos, { headers })
+      .pipe(catchError(this.handleError));
+  }
+
+  deletePersona(id: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/personas/${id}`)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Tu método original de registro
   registro(datos: any): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -19,9 +65,7 @@ export class Peticiones {
     });
 
     return this.http.post(`${this.baseUrl}/users/registro`, datos, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

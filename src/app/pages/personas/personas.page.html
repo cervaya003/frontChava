@@ -1,13 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>personas</ion-title>
+    <ion-title>Personas</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="agregarPersona()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">personas</ion-title>
+      <ion-title size="large">Personas</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Loading -->
+  <div *ngIf="cargando" class="ion-text-center ion-padding">
+    <ion-spinner></ion-spinner>
+    <p>Cargando personas...</p>
+  </div>
+
+  <!-- Lista de Personas -->
+  <ion-list *ngIf="!cargando">
+    <ion-item *ngFor="let persona of personas">
+      <ion-label>
+        <h2>{{ persona.nombre }}</h2>
+        <p>{{ persona.email }}</p>
+        <p>{{ persona.telefono }} • {{ persona.edad }} años</p>
+      </ion-label>
+      <ion-buttons slot="end">
+        <ion-button fill="clear" (click)="editarPersona(persona)">
+          <ion-icon slot="icon-only" name="pencil" color="primary"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" (click)="eliminarPersona(persona._id!)">
+          <ion-icon slot="icon-only" name="trash" color="danger"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+
+  <!-- Mensaje cuando no hay personas -->
+  <div *ngIf="!cargando && personas.length === 0" class="ion-text-center ion-padding">
+    <ion-icon name="people-outline" size="large" color="medium"></ion-icon>
+    <ion-text color="medium">
+      <h2>No hay personas registradas</h2>
+      <p>Agrega la primera persona para comenzar</p>
+    </ion-text>
+    <ion-button (click)="agregarPersona()" class="ion-margin-top">
+      <ion-icon slot="start" name="add"></ion-icon>
+      Agregar Primera Persona
+    </ion-button>
+  </div>
 </ion-content>
