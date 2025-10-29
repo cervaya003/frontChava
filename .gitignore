@@ -1,0 +1,54 @@
+# Ver también https://github.com/angular/angular/blob/main/.gitignore
+
+# Archivos de compilación
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# Dependencias
+/node_modules
+/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs y editores
+/.vscode
+/.vs
+/.idea
+*.swp
+*.swo
+*~
+
+# Archivos de entorno
+/environments/environment.ts
+/environments/environment.prod.ts
+/environments/environment.dev.ts
+!/environments/environment.example.ts
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de logging
+*.log
+
+# Archivos de testing
+/coverage
+*.lcov
+
+# Archivos de producción
+/build
+/www
+
+# Archivos de Capacitor
+/android
+/ios
+/.capacitor
+
+# Angular cache
+/.angular/cache
+
+# Archivos específicos del proyecto
+/Comants.txt
